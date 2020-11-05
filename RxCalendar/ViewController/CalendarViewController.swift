@@ -12,11 +12,23 @@ import RxSwift
 import RxCocoa
 import EventKit
 
-class CalendarViewController: UIViewController {
+class CalendarViewController: UIViewController, BindableType {
 
   @IBOutlet private weak var calendarView: FSCalendar!
   @IBOutlet private weak var tableView: UITableView!
   @IBOutlet private weak var noEventLabel: UILabel!
+  
+  var viewModel: CalendarViewModelType!
+  
+  func bindViewModel() {
+    
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    viewModel.loadEvents(at: selectedDay)
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,7 +42,7 @@ class CalendarViewController: UIViewController {
     navigationItem.title = "Event Calendar"
 
     tableView.tableFooterView = UIView()
-    calendarViewModel
+    viewModel
       .events
       .observeOn(MainScheduler.instance)
       .bind(to: tableView.rx.items(cellIdentifier: "tableviewCell")) { row, event, cell in
@@ -40,11 +52,11 @@ class CalendarViewController: UIViewController {
         cell.backgroundColor = Date().isInRange(date: event.date, and: event.dateEnd) ? .green :  cell.backgroundColor
     }.disposed(by: disposeBag)
     
-    calendarViewModel.events
+    viewModel.events
       .map { $0.count != 0 }
       .bind(to: noEventLabel.rx.isHidden)
       .disposed(by: disposeBag)
-    calendarViewModel
+    viewModel
       .events
       .observeOn(MainScheduler.instance)
       .subscribe { [weak self] (events) in
@@ -64,37 +76,35 @@ class CalendarViewController: UIViewController {
     
     addEventPublisher.subscribe { [weak self] _ in
       guard let self = self else { return }
-      self.calendarViewModel.loadEvents(at: self.selectedDay)
+      self.viewModel.loadEvents(at: self.selectedDay)
     }.disposed(by: disposeBag)
     
-    calendarViewModel.loadEvents(at: selectedDay)
+    viewModel.loadEvents(at: selectedDay)
   
   }
   
   // MARK: Privates
   
-  private let calendarViewModel: CalendarViewModelType = CalendarViewModel()
   private let disposeBag = DisposeBag()
   private var selectedDay: Date = Date()
   private var addEventPublisher: PublishSubject<[Event]> = PublishSubject()
   
   @IBAction private func addEvent(_ sender: AnyObject) {
-    showAddEvent(event: nil, date: selectedDay, events: addEventPublisher)
+   showAddEvent(date: selectedDay)
   }
   
   @IBAction private func signout(_ sender: AnyObject) {
-    navigationController?.popViewController(animated: true)
+    viewModel.signout()
   }
   
-  private func showAddEvent(event: Event?, date: Date, events: PublishSubject<[Event]>) {
-    let scene = Scene.addEvent(event: event, date: date, events: events).viewController()
-    navigationController?.pushViewController(scene, animated: true)
+  private func showAddEvent(date: Date) {
+    viewModel.addEvent(date: date)
   }
 }
 
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
   func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
     selectedDay = date
-    calendarViewModel.loadEvents(at: date)
+    viewModel.loadEvents(at: date)
   }
 }

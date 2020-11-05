@@ -9,33 +9,27 @@ import RxSwift
 
 protocol AddEventViewModelType {
   var date: Date { get set }
-  var event: Event? { get set }
-  var events: PublishSubject<[Event]> { get set }
-  
-  func addedEvent()
+  func addEvent(event: Event)
+  func cancel()
 }
 
 class AddEventViewModel: AddEventViewModelType {
   
   var date: Date
-  var event: Event?
-  var events: PublishSubject<[Event]> = PublishSubject()
+  private let sceneCoordinator: SceneCoordinatorType
   
-  init(event: Event?, date: Date, events: PublishSubject<[Event]>) {
+  init(sceneCoordinator: SceneCoordinatorType, date: Date) {
     self.date = date
-    self.events = events
-    self.event = event
+    self.sceneCoordinator = sceneCoordinator
   }
   
-  func addedEvent() {
-    EventKitCalendarManager.shared.getEvents(with: date) { [weak self] calendarEvents in
-      guard let self = self else { return }
-      var _events = [Event]()
-      calendarEvents.forEach { calendarEvent in
-        let event = Event(name: calendarEvent.title, date: calendarEvent.startDate, dateEnd: calendarEvent.endDate, id: calendarEvent.eventIdentifier)
-        _events.append(event)
-      }
-      self.events.onNext(_events)
+  func cancel() {
+    sceneCoordinator.pop(animated: true)
+  }
+  
+  func addEvent(event: Event) {
+    EventKitCalendarManager.shared.addEventToCalendar(event: event) { [weak self] (result) in
+      self?.sceneCoordinator.pop(animated: true)
     }
   }
 }

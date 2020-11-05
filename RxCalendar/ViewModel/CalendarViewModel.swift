@@ -11,6 +11,8 @@ protocol CalendarViewModelType {
   var events: PublishSubject<[Event]> { get set }
   
   func loadEvents(at selectedDate: Date)
+  func addEvent(date: Date)
+  func signout()
 }
 
 class CalendarViewModel: CalendarViewModelType {
@@ -20,11 +22,24 @@ class CalendarViewModel: CalendarViewModelType {
   private let disposeBag = DisposeBag()
   private var selectedDate = Date()
   
-  init() {
+  private let sceneCoordinator: SceneCoordinatorType
+  
+  init(sceneCoordinator: SceneCoordinatorType) {
+    self.sceneCoordinator = sceneCoordinator
+  
     EventKitCalendarManager.shared.shouldRefresh.subscribe { [weak self] (shouldRefresh) in
       guard let self = self, shouldRefresh.element == true else { return }
       self.loadEvents(at: self.selectedDate)
     }.disposed(by: disposeBag)
+  }
+  
+  func signout() {
+    sceneCoordinator.pop(animated: true)
+  }
+  
+  func addEvent(date: Date) {
+    let viewModel = AddEventViewModel(sceneCoordinator: sceneCoordinator, date: date)
+    sceneCoordinator.transition(to: Scene.addEvent(viewModel: viewModel), type: .push(animated: true))
   }
   
   func loadEvents(at selectedDate: Date = Date()) {

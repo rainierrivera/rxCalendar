@@ -143,6 +143,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="613-Id-gLU">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="SAn-y9-XqG">
+                            <connections>
+                                <action selector="cancelAction:" destination="Pfg-sx-EWM" id="ils-g9-wvI"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="2pQ-bp-hfh">
                             <connections>
                                 <action selector="saveAction:" destination="Pfg-sx-EWM" id="mXR-z0-Lje"/>
@@ -231,7 +236,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kl5-q3-NEK">
-                                <rect key="frame" x="57" y="387.5" width="300" height="34"/>
+                                <rect key="frame" x="57" y="405" width="300" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="Dr3-OV-iwU"/>
                                 </constraints>
@@ -239,14 +244,14 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bzz-bJ-XLI">
-                                <rect key="frame" x="57" y="448.5" width="300" height="30"/>
+                                <rect key="frame" x="57" y="466" width="300" height="30"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
                                     <action selector="registerAction:" destination="mBv-sO-NHj" eventType="touchUpInside" id="Q8I-O6-0iP"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WMT-L6-kFp">
-                                <rect key="frame" x="57" y="345.5" width="300" height="34"/>
+                                <rect key="frame" x="57" y="363" width="300" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="vKu-sN-Lf3"/>
                                 </constraints>
@@ -267,6 +272,14 @@
                             <constraint firstItem="Bzz-bJ-XLI" firstAttribute="leading" secondItem="kl5-q3-NEK" secondAttribute="leading" id="jjc-M4-fWj"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="AiG-Kg-oLe">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="4Tu-Vg-5Dm">
+                            <connections>
+                                <action selector="backAction:" destination="mBv-sO-NHj" id="9ZO-sL-h5D"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="passwordTextField" destination="kl5-q3-NEK" id="Tke-bq-amt"/>
                         <outlet property="usernameTextField" destination="WMT-L6-kFp" id="3Og-jx-R1k"/>

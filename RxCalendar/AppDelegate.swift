@@ -15,11 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     
-    let window = UIWindow(frame: UIScreen.main.bounds)
-    self.window = window
-    let navigationViewController = UINavigationController(rootViewController: Scene.login.viewController())
-    window.rootViewController = navigationViewController
-    window.makeKeyAndVisible()
+    window = UIWindow(frame: UIScreen.main.bounds)
+    window?.makeKeyAndVisible()
+    
+    window?.rootViewController = UIViewController()
+    let sceneCoordinator = SceneCoordinator(window: window!)
+    
+    let scene = Scene.login(viewModel: LoginViewModel(coordinator: sceneCoordinator))
+    sceneCoordinator.transition(to: scene, type: .root)
     return true
   }
 

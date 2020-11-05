@@ -28,8 +28,8 @@ class AddEventViewController: UIViewController {
     super.viewDidLoad()
     navigationItem.title = "\(viewModel.date.monthName(.short)) \(viewModel.date.day) \(viewModel.date.year)"
     
-    eventNameTextField.text = viewModel.event?.name
-    
+    startDate = viewModel.date
+    datePicker.date = startDate
     datePicker.datePickerMode = .time
     datePicker.locale = .current
     
@@ -64,10 +64,6 @@ class AddEventViewController: UIViewController {
       self.dateEndTextField.text = "\(min):\(date.minute)"
     }.disposed(by: disposeBag)
     
-    viewModel.events
-      .subscribe { [weak self] _ in
-        self?.navigationController?.popViewController(animated: true)
-      }.disposed(by: disposeBag)
   }
   
   
@@ -78,23 +74,17 @@ class AddEventViewController: UIViewController {
       return dateFormat.firstIndex(of: "a") == nil
   }
   
+  @IBAction private func cancelAction(_ sender: AnyObject) {
+    viewModel.cancel()
+  }
   @IBAction private func saveAction(_ sender: AnyObject) {
     guard eventNameTextField.text?.isEmpty == false else {
       // TODO: Show Alert required fields
       return
     }
-    
     let event = Event(name: eventNameTextField.text!, date: startDate, dateEnd: endDate, id: "")
   
-    EventKitCalendarManager.shared.addEventToCalendar(event: event) { (result) in
-      switch result {
-      case .success:
-        print("success")
-      case .error(let error):
-        print("Fail")
-      }
-    }
-    viewModel.addedEvent()
+    viewModel.addEvent(event: event)
     
   }
 }

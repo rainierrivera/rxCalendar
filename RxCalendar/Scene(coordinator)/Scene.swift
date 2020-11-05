@@ -7,26 +7,26 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 enum Scene {
-  case calendar
-  case login
-  case register
-  // Insert Event when need to edit
-  case addEvent(event: Event?, date: Date, events: PublishSubject<[Event]>)
+  case calendar(viewModel: CalendarViewModelType)
+  case login(viewModel: LoginViewModelType)
+  case register(viewModel: RegisterViewModelType)
+  case addEvent(viewModel: AddEventViewModelType)
 }
 
 extension Scene {
   func viewController() -> UIViewController {
     switch self {
-    case .login:
-      return loginViewController()
-    case .register:
-      return registerViewController()
-    case let .addEvent(event, date, events):
-      return addEventViewController(event: event, date: date, events: events)
-    case .calendar:
-      return calendarViewController()
+    case let .login(viewModel):
+      return loginViewController(viewModel: viewModel)
+    case let .register(viewModel):
+      return registerViewController(viewModel: viewModel)
+    case let .addEvent(viewModel):
+      return addEventViewController(viewModel: viewModel)
+    case let .calendar(viewModel):
+      return calendarViewController(viewModel: viewModel)
     }
   }
   
@@ -46,25 +46,32 @@ extension Scene {
 
 extension Scene {
   
-  private func loginViewController() -> UIViewController {
+  private func loginViewController(viewModel: LoginViewModelType) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    return storyboard.instantiateViewController(withIdentifier: identifier)
+    let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! LoginViewController
+    viewController.viewModel = viewModel
+    let navigationController = UINavigationController(rootViewController: viewController)
+    return navigationController
   }
   
-  private func registerViewController() -> UIViewController {
+  private func registerViewController(viewModel: RegisterViewModelType) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    return storyboard.instantiateViewController(withIdentifier: identifier)
+    let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! RegisterViewController
+    viewController.viewModel = viewModel
+    return viewController
   }
   
-  private func calendarViewController() -> UIViewController {
+  private func calendarViewController(viewModel: CalendarViewModelType) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    return storyboard.instantiateViewController(withIdentifier: identifier)
+    let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! CalendarViewController
+    viewController.viewModel = viewModel
+    return viewController
   }
   
-  private func addEventViewController(event: Event?, date: Date, events: PublishSubject<[Event]>) -> UIViewController {
+  private func addEventViewController(viewModel: AddEventViewModelType) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! AddEventViewController
-    viewController.viewModel = AddEventViewModel(event: event, date: date, events: events)
+    viewController.viewModel = viewModel
     return viewController
   }
 }

@@ -8,26 +8,22 @@
 import RxSwift
 import UIKit
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, BindableType {
 
-  private var viewModel: RegisterViewModelType = RegisterViewModel()
+  var viewModel: RegisterViewModelType!
+  
+  func bindViewModel() {
+    
+  }
   
   @IBOutlet weak private var usernameTextField: UITextField!
   @IBOutlet weak private var passwordTextField: UITextField!
   
-  private let disposeBag = DisposeBag()
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    viewModel.registered.subscribe { [weak self] (_) in
-      self?.navigationController?.popViewController(animated: true)
-    }.disposed(by: disposeBag)
-    
-  }
-  
-  
   // MARK: Privates
+  
+  @IBAction func backAction(_ sender: AnyObject) {
+    viewModel.pop()
+  }
   
   @IBAction func registerAction(_ sender: AnyObject) {
     guard usernameTextField.text?.isEmpty == false && passwordTextField.text?.isEmpty == false else {

@@ -13,6 +13,8 @@ protocol LoginViewModelType {
   var isCurrentlyHaveUser: Bool { get }
   
   func login(username: String, password: String)
+  func register()
+  func calendar()
 }
 
 class LoginViewModel: LoginViewModelType {
@@ -24,6 +26,21 @@ class LoginViewModel: LoginViewModelType {
   
   var isCurrentlyHaveUser: Bool {
     return userDefault.getUser() != nil
+  }
+  
+  private let coordinator: SceneCoordinatorType
+  init(coordinator: SceneCoordinatorType) {
+    self.coordinator = coordinator
+  }
+  
+  func register() {
+    let registerViewModel = RegisterViewModel(sceneCoordinator: coordinator)
+    coordinator.transition(to: Scene.register(viewModel: registerViewModel), type: .push(animated: true))
+  }
+  
+  func calendar() {
+    let calendarViewModel = CalendarViewModel(sceneCoordinator: coordinator)
+    coordinator.transition(to: Scene.calendar(viewModel: calendarViewModel), type: .push(animated: true))
   }
   
   func login(username: String, password: String) {

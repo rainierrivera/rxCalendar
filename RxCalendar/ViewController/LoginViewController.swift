@@ -9,14 +9,18 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, BindableType {
 
-  private var viewModel: LoginViewModelType = LoginViewModel()
+  var viewModel: LoginViewModelType!
   private let disposeBag = DisposeBag()
   
   @IBOutlet private weak var usernameTextField: UITextField!
   @IBOutlet private weak var passwordTextField: UITextField!
   @IBOutlet private weak var registerButton: UIButton!
+  
+  func bindViewModel() {
+    
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -29,7 +33,7 @@ class LoginViewController: UIViewController {
       .subscribe { [weak self] (_) in
         self?.usernameTextField.text = ""
         self?.passwordTextField.text = ""
-        self?.navigationController?.pushViewController(Scene.calendar.viewController(), animated: true)
+        self?.viewModel.calendar()
       }
       .disposed(by: disposeBag)
     
@@ -54,7 +58,7 @@ class LoginViewController: UIViewController {
   }
   
   @IBAction private func registerAction(_ sender: AnyObject) {
-    navigationController?.pushViewController(Scene.register.viewController(), animated: true)
+    viewModel.register()
   }
   
   private func showAlert(withTitle title: String) {

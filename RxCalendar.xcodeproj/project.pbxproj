@@ -11,6 +11,8 @@
 		E138DF452553CDA1002BD0BB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E138DF442553CDA1002BD0BB /* User.swift */; };
 		E138DF482553CDB6002BD0BB /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E138DF472553CDB6002BD0BB /* LoginViewModel.swift */; };
 		E138DF4B2553CDBE002BD0BB /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E138DF4A2553CDBE002BD0BB /* RegisterViewModel.swift */; };
+		E138DF5C25540294002BD0BB /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E138DF5B25540294002BD0BB /* SceneCoordinator.swift */; };
+		E138DF5F255402E6002BD0BB /* ViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = E138DF5E255402E6002BD0BB /* ViewController+.swift */; };
 		E1841B13254BEC69009E14D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1841B12254BEC69009E14D2 /* AppDelegate.swift */; };
 		E1841B17254BEC69009E14D2 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1841B16254BEC69009E14D2 /* CalendarViewController.swift */; };
 		E1841B1A254BEC69009E14D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1841B18254BEC69009E14D2 /* Main.storyboard */; };
@@ -34,6 +36,8 @@
 		E138DF442553CDA1002BD0BB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E138DF472553CDB6002BD0BB /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E138DF4A2553CDBE002BD0BB /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		E138DF5B25540294002BD0BB /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
+		E138DF5E255402E6002BD0BB /* ViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+.swift"; sourceTree = "<group>"; };
 		E1841B0F254BEC69009E14D2 /* RxCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1841B12254BEC69009E14D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1841B16254BEC69009E14D2 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				E1A2B4982553BDC9006C9894 /* Date+.swift */,
+				E138DF5E255402E6002BD0BB /* ViewController+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				E1C8CBF2255247AC00C3E708 /* Scene.swift */,
+				E138DF5B25540294002BD0BB /* SceneCoordinator.swift */,
 			);
 			path = "Scene(coordinator)";
 			sourceTree = "<group>";
@@ -292,6 +298,7 @@
 				E138DF452553CDA1002BD0BB /* User.swift in Sources */,
 				E138DF4B2553CDBE002BD0BB /* RegisterViewModel.swift in Sources */,
 				E1C8CBDE255033C900C3E708 /* AppUserDefaultManager.swift in Sources */,
+				E138DF5C25540294002BD0BB /* SceneCoordinator.swift in Sources */,
 				E1841B17254BEC69009E14D2 /* CalendarViewController.swift in Sources */,
 				E1C8CBC5254BFCAB00C3E708 /* Event.swift in Sources */,
 				E1A2B49F2553C0FF006C9894 /* RegisterViewController.swift in Sources */,
@@ -299,6 +306,7 @@
 				E138DF482553CDB6002BD0BB /* LoginViewModel.swift in Sources */,
 				E1C8CBF3255247AC00C3E708 /* Scene.swift in Sources */,
 				E1841B13254BEC69009E14D2 /* AppDelegate.swift in Sources */,
+				E138DF5F255402E6002BD0BB /* ViewController+.swift in Sources */,
 				E1C8CBCB25502B4900C3E708 /* CalendarViewModel.swift in Sources */,
 				E1A2B4992553BDC9006C9894 /* Date+.swift in Sources */,
 				E1A2B4862552C77C006C9894 /* EventKitCalendarManager.swift in Sources */,

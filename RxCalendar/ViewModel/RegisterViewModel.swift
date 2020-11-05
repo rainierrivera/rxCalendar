@@ -11,6 +11,7 @@ protocol RegisterViewModelType {
   var registered: PublishSubject<Void> { get set }
   
   func register(username: String, password: String)
+  func pop()
 }
 
 class RegisterViewModel: RegisterViewModelType {
@@ -19,9 +20,19 @@ class RegisterViewModel: RegisterViewModelType {
   
   private let userDefaults = AppUserDefaultManager.shared
   
+  private let sceneCoordinator: SceneCoordinatorType
+  init(sceneCoordinator: SceneCoordinatorType) {
+    self.sceneCoordinator = sceneCoordinator
+  }
+  
+  func pop() {
+    sceneCoordinator.pop(animated: true)
+  }
+  
   func register(username: String, password: String) {
     let user = User(username: username, password: password)
     userDefaults.saveUser(user: user)
-    registered.onNext(())
+    
+    sceneCoordinator.pop(animated: true)
   }
 }
