@@ -1,0 +1,34 @@
+PODS:
+  - FSCalendar (2.8.1)
+  - RxCocoa (5.1.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.1)
+  - SwiftDate (6.2.0)
+
+DEPENDENCIES:
+  - FSCalendar
+  - RxCocoa
+  - RxSwift
+  - SwiftDate
+
+SPEC REPOS:
+  trunk:
+    - FSCalendar
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - SwiftDate
+
+SPEC CHECKSUMS:
+  FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SwiftDate: d117c3eb6beed72e47d3f4d1e3bc63fa1e66d7c3
+
+PODFILE CHECKSUM: b92f7555439fbbf289fcf3d5e3ad150060be32c6
+
+COCOAPODS: 1.10.0
