@@ -22,26 +22,10 @@ class CalendarViewController: UIViewController, BindableType {
   
   func bindViewModel() {
     
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
+    viewModel.navigationTitle
+      .bind(to: navigationItem.rx.title)
+      .disposed(by: disposeBag)
     
-    viewModel.loadEvents(at: selectedDay)
-  }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // Do any additional setup after loading the view.
-    
-    calendarView.dataSource = self
-    calendarView.delegate = self
-    
-    SwiftDate.defaultRegion = .local
-    
-    navigationItem.title = "Event Calendar"
-
-    tableView.tableFooterView = UIView()
     viewModel
       .events
       .observeOn(MainScheduler.instance)
@@ -81,6 +65,23 @@ class CalendarViewController: UIViewController, BindableType {
     
     viewModel.loadEvents(at: selectedDay)
   
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    viewModel.loadEvents(at: selectedDay)
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view.
+    
+    calendarView.dataSource = self
+    calendarView.delegate = self
+    
+    SwiftDate.defaultRegion = .local
+    tableView.tableFooterView = UIView()
   }
   
   // MARK: Privates

@@ -9,6 +9,8 @@ import RxSwift
 
 protocol AddEventViewModelType {
   var date: Date { get set }
+  var navigationTitle: Observable<String> { get }
+  
   func addEvent(event: Event)
   func cancel()
 }
@@ -16,6 +18,9 @@ protocol AddEventViewModelType {
 class AddEventViewModel: AddEventViewModelType {
   
   var date: Date
+  var navigationTitle: Observable<String> {
+    .just("\(date.monthName(.short)) \(date.day) \(date.year)")
+  }
   private let sceneCoordinator: SceneCoordinatorType
   
   init(sceneCoordinator: SceneCoordinatorType, date: Date) {

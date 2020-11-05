@@ -9,25 +9,11 @@ import UIKit
 import RxSwift
 import EventKit
 
-class AddEventViewController: UIViewController {
+class AddEventViewController: UIViewController, BindableType {
 
   var viewModel: AddEventViewModelType!
   
-  private let disposeBag = DisposeBag()
-  
-  @IBOutlet private weak var eventNameTextField: UITextField!
-  @IBOutlet private weak var dateStartTextField: UITextField!
-  @IBOutlet private weak var dateEndTextField: UITextField!
-  
-  private var datePicker = UIDatePicker()
-  private var endDatePicker = UIDatePicker()
-  private var startDate = Date()
-  private var endDate = Date()
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    navigationItem.title = "\(viewModel.date.monthName(.short)) \(viewModel.date.day) \(viewModel.date.year)"
-    
+  func bindViewModel() {
     startDate = viewModel.date
     datePicker.date = startDate
     datePicker.datePickerMode = .time
@@ -63,6 +49,22 @@ class AddEventViewController: UIViewController {
       self.endDate = date
       self.dateEndTextField.text = "\(min):\(date.minute)"
     }.disposed(by: disposeBag)
+  }
+  
+  private let disposeBag = DisposeBag()
+  
+  @IBOutlet private weak var eventNameTextField: UITextField!
+  @IBOutlet private weak var dateStartTextField: UITextField!
+  @IBOutlet private weak var dateEndTextField: UITextField!
+  
+  private var datePicker = UIDatePicker()
+  private var endDatePicker = UIDatePicker()
+  private var startDate = Date()
+  private var endDate = Date()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    navigationItem.title = "\(viewModel.date.monthName(.short)) \(viewModel.date.day) \(viewModel.date.year)"
     
   }
   

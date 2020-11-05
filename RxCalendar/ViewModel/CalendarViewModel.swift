@@ -9,7 +9,7 @@ import RxSwift
 
 protocol CalendarViewModelType {
   var events: PublishSubject<[Event]> { get set }
-  
+  var navigationTitle: Observable<String> { get }
   func loadEvents(at selectedDate: Date)
   func addEvent(date: Date)
   func signout()
@@ -18,6 +18,9 @@ protocol CalendarViewModelType {
 class CalendarViewModel: CalendarViewModelType {
   
   var events: PublishSubject<[Event]> = PublishSubject()
+  var navigationTitle: Observable<String> {
+    .just("Event Calendar")
+  }
   
   private let disposeBag = DisposeBag()
   private var selectedDate = Date()

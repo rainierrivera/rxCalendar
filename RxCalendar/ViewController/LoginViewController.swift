@@ -19,14 +19,6 @@ class LoginViewController: UIViewController, BindableType {
   @IBOutlet private weak var registerButton: UIButton!
   
   func bindViewModel() {
-    
-  }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    navigationItem.title = "Login"
-    
     registerButton.isHidden = viewModel.isCurrentlyHaveUser
     
     viewModel.user
@@ -40,6 +32,10 @@ class LoginViewController: UIViewController, BindableType {
     viewModel.showError.subscribe {[weak self] (errorText) in
       self?.showAlert(withTitle: errorText)
     }.disposed(by: disposeBag)
+    
+    viewModel.navigationTitle
+      .bind(to: navigationItem.rx.title)
+      .disposed(by: disposeBag)
   }
   
   override func viewDidAppear(_ animated: Bool) {

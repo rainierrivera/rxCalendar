@@ -11,6 +11,7 @@ protocol LoginViewModelType {
   var user: PublishSubject<User> { get set }
   var showError: PublishSubject<String> { get set }
   var isCurrentlyHaveUser: Bool { get }
+  var navigationTitle: Observable<String> { get }
   
   func login(username: String, password: String)
   func register()
@@ -18,7 +19,9 @@ protocol LoginViewModelType {
 }
 
 class LoginViewModel: LoginViewModelType {
-  
+  var navigationTitle: Observable<String> {
+    .just("Login")
+  }
   private let userDefault = AppUserDefaultManager.shared
   
   var user = PublishSubject<User>()

@@ -48,30 +48,30 @@ extension Scene {
   
   private func loginViewController(viewModel: LoginViewModelType) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! LoginViewController
-    viewController.viewModel = viewModel
+    var viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! LoginViewController
+    viewController.bindViewModel(to: viewModel)
     let navigationController = UINavigationController(rootViewController: viewController)
     return navigationController
   }
   
   private func registerViewController(viewModel: RegisterViewModelType) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! RegisterViewController
-    viewController.viewModel = viewModel
+    var viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! RegisterViewController
+    viewController.bindViewModel(to: viewModel)
     return viewController
   }
   
   private func calendarViewController(viewModel: CalendarViewModelType) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! CalendarViewController
-    viewController.viewModel = viewModel
+    var viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! CalendarViewController
+    viewController.bindViewModel(to: viewModel)
     return viewController
   }
   
   private func addEventViewController(viewModel: AddEventViewModelType) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! AddEventViewController
-    viewController.viewModel = viewModel
+    var viewController = storyboard.instantiateViewController(withIdentifier: identifier) as! AddEventViewController
+    viewController.bindViewModel(to: viewModel)
     return viewController
   }
 }
