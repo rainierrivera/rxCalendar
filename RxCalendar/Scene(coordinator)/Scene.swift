@@ -22,7 +22,7 @@ extension Scene {
     case .login:
       return loginViewController()
     case .register:
-      return RegisterViewController()
+      return registerViewController()
     case let .addEvent(event, date, events):
       return addEventViewController(event: event, date: date, events: events)
     case .calendar:
@@ -51,7 +51,7 @@ extension Scene {
     return storyboard.instantiateViewController(withIdentifier: identifier)
   }
   
-  private func RegisterViewController() -> UIViewController {
+  private func registerViewController() -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     return storyboard.instantiateViewController(withIdentifier: identifier)
   }
