@@ -5,15 +5,13 @@
 //  Created by Collabera on 11/5/20.
 //
 
-import Foundation
+import UIKit
+import RxSwift
 
 enum SceneTransitionType {
     case root
     case push(animated: Bool)
     case modal(animated: Bool)
-  
-    // Add custom transtion types...
-    case pushToVC(stackPath: [UIViewController], animated: Bool)
 }
 
 protocol SceneCoordinatorType {
@@ -79,23 +77,6 @@ final class SceneCoordinator: SceneCoordinatorType {
           currentViewController.present(viewController, animated: animated) {
               subject.onCompleted()
           }
-          currentViewController = SceneCoordinator.actualViewController(for: viewController)
-          
-      case .pushToVC(let stack, let animated):
-          guard let navigationController = currentViewController.navigationController else {
-              fatalError("Can't push a view controller without a current navigation controller")
-          }
-          
-          var controllers = navigationController.viewControllers
-          stack.forEach { controllers.append($0) }
-          controllers.append(viewController)
-          
-          // one-off subscription to be notified when push complete
-          _ = navigationController.rx.delegate
-              .sentMessage(#selector(UINavigationControllerDelegate.navigationController(_:didShow:animated:)))
-              .map { _ in }
-              .bind(to: subject)
-          navigationController.setViewControllers(controllers, animated: animated)
           currentViewController = SceneCoordinator.actualViewController(for: viewController)
       }
       return subject.asObservable()

@@ -5,7 +5,7 @@
 //  Created by Collabera on 11/5/20.
 //
 
-import Foundation
+import UIKit
 
 protocol BindableType {
     associatedtype ViewModelType
